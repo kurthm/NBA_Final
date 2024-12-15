@@ -183,7 +183,7 @@ def linreg_analysis(dframe):
         dframe (pandas.DataFrame): The input data frame containing player data, including 'Pk' and 'College' columns.
 
     Returns:
-        list: A list containing the OLS regression summary for both feature sets:
+        list: A list containing the OLS regression R-squared value for both feature sets:
               [summary_without_college_predictors, summary_with_college_predictors].
     """
     
@@ -214,14 +214,14 @@ def linreg_analysis(dframe):
         model = sm.OLS(y, x_with_intercept).fit()
 
         # Get the model summary (coefficients, R-squared, p-values, etc.)
-        mod_summary = model.summary()
+        mod_summary = model.rsquared
 
         # Append the summary to the list
         summaries.append(mod_summary)
 
-    # Print the summary for both feature sets
-    print(f"Summary without college predictors: {summaries[0]}")
-    print(f"Summary with college predictors: {summaries[1]}")
+    # # Print the summary for both feature sets
+    # print(f"Summary without college predictors: {summaries[0]}")
+    # print(f"Summary with college predictors: {summaries[1]}")
 
     # Return the list of model summaries
-    return None
+    return summaries

@@ -109,3 +109,27 @@ if st.session_state.draft_df is not None:
     )
 
     st.plotly_chart(fig)
+
+    st.header("Draft Position Analysis")
+    st.write("Predicts player draft position using your dataframe")
+
+    knn = knn_analysis(st.session_state.draft_df)
+    linreg = linreg_analysis(st.session_state.draft_df)
+    dtree = dtree_analysis(st.session_state.draft_df)
+
+    # Dropdown (or radio) for selecting the model
+    model_choice = st.selectbox(
+    "Select a model to view performance:",
+    ["K Nearest Neighbor", "Linear Regression", "Decision Tree"]
+)
+
+# Display the corresponding model's output based on selection
+    if model_choice == "K Nearest Neighbor":
+        st.write(f"Model accuracy without college info: {round(knn[0], 4)}")
+        st.write(f"Model accuracy with college info: {round(knn[1], 4)}")
+    elif model_choice == "Linear Regression":
+        st.write(f"Model R-squared without college info: {round(linreg[0], 4)}")
+        st.write(f"Model R-squared with college info: {round(linreg[1], 4)}")
+    elif model_choice == "Decision Tree":
+        st.write(f"Model accuracy without college info: {round(dtree[0], 4)}")
+        st.write(f"Model accuracy with college info: {round(dtree[1], 4)}")
